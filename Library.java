@@ -282,6 +282,9 @@ public class Library {
                         case 7:
                             library.listOfAllBorrowedBooksWithTheirMembers.forEach((key, value) -> System.out.println("Book: " + key + "," + "Member: " + value));
                             break;
+                        case 10:
+                            System.out.println("EXIT");
+                            break;
                         default:
                             System.out.println("Choose among 1 to 7 or 10 for exit.");
                             break;
@@ -353,6 +356,9 @@ public class Library {
                         System.out.println(LibraryMembers.searchMemberById());
                         break;
                     }
+                case 10:
+                    System.out.println("EXIT");
+                     break;
                 default:
                     System.out.println("Choose among 1 to 3 or 10 for exit.");
                     break;
