@@ -4,26 +4,58 @@ import java.util.Scanner;
 
 public class Member {
 
-    public String name;
-    public int Id;
-    public String contactDetails;
-    public boolean isAdmin;
-    Scanner memberScanner = new Scanner(System.in);
+    private String name;
+    private int Id;
+    private String contactDetails;
+    private boolean isAdmin;
+
+    private Scanner scanner = new Scanner(System.in);
 
     public Member() {
-    System.out.println("Give member's name: ");
-        this.name = memberScanner.nextLine();
+        System.out.println("Enter member's name: ");
+        this.name = scanner.nextLine();
 
-        System.out.println("Give member's id: ");
-        this.Id = memberScanner.nextInt();
-        memberScanner.nextLine();
+        while(true){
+            try {
+                System.out.println("Enter member's id:(number) ");
+                this.Id = scanner.nextInt();
+                break;
+            } catch (Exception e) {
+                System.out.println("Enter a number.");
+                scanner.nextLine();
+            }
+        }
+        scanner.nextLine();
 
-        System.out.println("Give member's contact details ");
-        this.contactDetails = memberScanner.nextLine();
+        System.out.println("Enter member's contact details ");
+        this.contactDetails = scanner.nextLine();
 
-        System.out.println("Is this member the library's admin?(answer true/false) ");
-        this.isAdmin = memberScanner.nextBoolean();
+        while(true){
+            try{
+                System.out.println("Is this member the library's admin?(enter true/false) ");
+                this.isAdmin = scanner.nextBoolean();
+                break;
+            }catch (Exception e) {
+                System.out.println("Enter true or false..");
+                scanner.nextLine();
+            }
+        }
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public String getContactDetails() {
+        return contactDetails;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
     public void setAdmin(boolean admin) {

@@ -4,27 +4,26 @@ import java.util.Scanner;
 
 public class Book {
 
-    public String title;
-    public String author;
-    public int ISBN;
-    public String publicationYear;
-    public boolean isAvailable = true;
+    private String title;
+    private String author;
+    private String ISBN;
+    private String publicationYear;
+    private boolean isAvailable = true;
 
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     public Book() {
 
-        System.out.println("Give book title: ");
+        System.out.println("Enter book title: ");
         this.title = scanner.nextLine();
 
-        System.out.println("Give author's name: ");
+        System.out.println("Enter author's name: ");
         this.author = scanner.nextLine();
 
-        System.out.println("Give ISBN code: ");
-        this.ISBN = scanner.nextInt();
-        scanner.nextLine();
+        System.out.println("Enter ISBN code ");
+        this.ISBN = scanner.nextLine();
 
-        System.out.println("Give book's publication year: ");
+        System.out.println("Enter book's publication year: ");
         this.publicationYear = scanner.next();
 
     }
@@ -40,7 +39,23 @@ public class Book {
                 '}';
     }
 
-    public boolean getIsAvailable() {
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public String getPublicationYear() {
+        return publicationYear;
+    }
+
+    public boolean isAvailable() {
         if(!isAvailable){
             System.out.println("Look for another book");
             return isAvailable;
