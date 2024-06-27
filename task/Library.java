@@ -1,4 +1,4 @@
-package task2;
+package task2.task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ public class Library {
     private String libraryAddress;
     private List<Member> listOfMembers = new ArrayList<>();
     private Book book;
-    List<Book> listOfBooks = new ArrayList<>();
+   private List<Book> listOfBooks = new ArrayList<>();
     HashMap<String, Integer> listOfAllBorrowedBooksWithTheirMembers = new HashMap<>();
 
     public Library() {
@@ -22,6 +22,11 @@ public class Library {
 
         System.out.println("Enter Library's address: ");
         this.libraryAddress = scanner.nextLine();
+    }
+
+    public Library(String name, String address){
+        this.libraryName = name;
+        this.libraryAddress = address;
     }
 
     public String getLibraryName() {
@@ -189,8 +194,7 @@ public class Library {
             book.setAvailable(false);
             listOfAllBorrowedBooksWithTheirMembers.put(book.getTitle(), member.getId());
             System.out.println(book.getTitle() + " is borrowed by " + member.getId());
-
-        }else
+        } else
             System.out.println("This book is not available wright now");
     }
 
@@ -220,9 +224,7 @@ public class Library {
     }
 
     public void printMembers() {
-        System.out.println("LibraryMembers{" +
-                "listOfAllMembers: " + listOfMembers +
-                '}');
+        System.out.println("LibraryMembers{" + listOfMembers + '}');
     }
 
 

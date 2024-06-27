@@ -1,4 +1,4 @@
-package task2;
+package task2.task;
 
 import java.util.Scanner;
 
@@ -25,17 +25,24 @@ public class Book {
 
         System.out.println("Enter book's publication year: ");
         this.publicationYear = scanner.next();
+    }
 
+    public Book(String title, String author, String ISBN, String publicationYear, boolean isAvailable) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+        this.publicationYear = publicationYear;
+        this.isAvailable = isAvailable;
     }
 
     @Override
     public String toString() {
         return "Book{" +
-                "title= " + title + '\'' +
-                ", author= " + author + '\'' +
-                ", ISBN= " + ISBN +
-                ", publicationYear= " + publicationYear + '\'' +
-                ", isAvailable= " + isAvailable +
+                "title: " + title + '\'' +
+                ", author: " + author + '\'' +
+                ", ISBN: " + ISBN +
+                ", publicationYear: " + publicationYear + '\'' +
+                ", isAvailable: " + isAvailable +
                 '}';
     }
 
@@ -56,11 +63,7 @@ public class Book {
     }
 
     public boolean isAvailable() {
-        if(!isAvailable){
-            System.out.println("Look for another book");
-            return isAvailable;
-        }
-        return true;
+        return isAvailable;
     }
 
     public void setAvailable(boolean available) {

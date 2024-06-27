@@ -1,4 +1,4 @@
-package task2;
+package task2.task;
 
 import java.util.Scanner;
 
@@ -42,6 +42,13 @@ public class Member {
         }
     }
 
+    public Member(String name, int id, String contactDetails, boolean isAdmin) {
+        this.name = name;
+        this.Id = id;
+        this.contactDetails = contactDetails;
+        this.isAdmin = isAdmin;
+    }
+
     public String getName() {
         return name;
     }
@@ -65,7 +72,7 @@ public class Member {
     @Override
     public String toString() {
         return "Member{" +
-                "name: '" + name + '\'' +
+                "name: " + name + '\'' +
                 ", Id: " + Id +
                 ", contactDetails: " + contactDetails + '\'' +
                 ", isAdmin: " + isAdmin + '\'' +

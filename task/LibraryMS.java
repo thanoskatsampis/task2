@@ -1,18 +1,21 @@
-package task2;
+package task2.task;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import static java.lang.Boolean.parseBoolean;
 
 public class LibraryMS {
 
     private List<Library> libraries = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
+
+    private static final String FILE_LIBRARY = "Library_data.txt";
 
     private int compareLibraries(Library library){
         for(Library l : libraries){
@@ -68,7 +71,7 @@ public class LibraryMS {
                                 }
                                 break;
                             case 2:
-                                if(library.listOfBooks.isEmpty()){
+                                if(library.getListOfBooks().isEmpty()){
                                     System.out.println("There isn't any book added in the library.");
                                     break;
                                 }
@@ -106,14 +109,14 @@ public class LibraryMS {
                                 membersMenu(library);
                                 break;
                             case 5:
-                                if(library.listOfBooks.isEmpty()){
+                                if(library.getListOfBooks().isEmpty()){
                                     System.out.println("You should add a book at first.");
                                     break;
                                 }
                                 System.out.println(library.booksAvailability());
                                 break;
                             case 6:
-                                if(library.listOfBooks.isEmpty()){
+                                if(library.getListOfBooks().isEmpty()){
                                     System.out.println("You should add a book at first.");
                                     break;
                                 }
@@ -142,14 +145,14 @@ public class LibraryMS {
                                 }
                                 break;
                             case 7:
-                                if(library.listOfBooks.isEmpty()){
+                                if(library.getListOfBooks().isEmpty()){
                                     System.out.println("The Library is empty.");
                                     break;
                                 }
                                 library.listOfAllBorrowedBooksWithTheirMembers.forEach((key, value) -> System.out.println("Book: " + key + "," + "Member: " + value));
                                 break;
                             case 8:
-                                saveLibraryDataToFile();
+                              saveLibraryDataToFile();
                                 break;
                             case 10:
                                 System.out.println("Exit the Library menu.");
@@ -245,6 +248,8 @@ public class LibraryMS {
                             System.out.println(library.searchMemberById());
                             break;
                         }
+                    case 10:
+                        break;
                     default:
                         System.out.println("Choose among 1 to 3 or 10 for exit.");
                         break;
@@ -257,33 +262,49 @@ public class LibraryMS {
         }
     }
 
+
     public void saveLibraryDataToFile() {
-        try (FileWriter writer = new FileWriter("Library/path.txt")) {
-            writer.write("Libraries\n");
+        try (FileWriter writer = new FileWriter(FILE_LIBRARY)) {
             for (Library library : libraries) {
-                writer.write(library.getLibraryName() + "~" + library.getLibraryAddress() + "\n");
-                writer.write("Books:\n");
+                writer.write("Library:");
+                writer.write( "~" + library.getLibraryName() + "~" + library.getLibraryAddress() + "\n");
                 for (Book book : library.getListOfBooks()) {
-                    writer.write(book.getTitle() + "~" + book.getAuthor() + "~" + book.getISBN() + "~" + book.getPublicationYear() + "~" + book.isAvailable() + "\n");
+                    writer.write("Book:");
+                    writer.write("~" + book.getTitle() + "~" + book.getAuthor() + "~" + book.getISBN() + "~" + book.getPublicationYear() + "~" + book.isAvailable() + "\n");
                 }
-                writer.write("Members:\n");
                 for (Member member : library.getListOfMembers()) {
-                    writer.write(member.getName() + "~" + member.getId() + "~" + member.getContactDetails() + "~" + member.isAdmin() + "\n");
+                    writer.write("Member:");
+                    writer.write("~" +  member.getName() + "~" + member.getId() + "~" + member.getContactDetails() + "~" + member.isAdmin() + "\n");
                 }
             }
         } catch (IOException e) {
             System.out.println("file not found");
         }
     }
+
     public void loadLibraryDataFromFile() {
-        try(Scanner sc = new Scanner(new File("Library/path.txt"))){
-            while(sc.hasNextLine()) {
-                String data = sc.nextLine();
-                String[] arrOfStr = data.split("~", 0);
-                System.out.println(Arrays.toString(arrOfStr));
+        try(BufferedReader reader = new BufferedReader(new FileReader(FILE_LIBRARY))) {
+            String line;
+            Library currentLibrary = null;
+            while ((line = reader.readLine()) != null) {
+                String[] arrOfStr = line.split("~");
+                if (line.startsWith("Library:")) {
+                    currentLibrary = new Library(arrOfStr[1], arrOfStr[2]);
+                    libraries.add(currentLibrary);
+                } else if (line.startsWith("Book:")) {
+                    if (currentLibrary != null) {
+                        Book book = new Book(arrOfStr[1], arrOfStr[2], arrOfStr[3], arrOfStr[4], parseBoolean(arrOfStr[5]));
+                        currentLibrary.getListOfBooks().add(book);
+                    }
+                } else if (line.startsWith("Member:")) {
+                    if (currentLibrary != null) {
+                        Member member = new Member(arrOfStr[1], Integer.parseInt(arrOfStr[2]), arrOfStr[3], parseBoolean(arrOfStr[4]));
+                        currentLibrary.getListOfMembers().add(member);
+                    }
+                }
             }
-        }catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        }catch (IOException e) {
+            throw new RuntimeException();
         }
     }
 }
