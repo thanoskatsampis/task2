@@ -22,7 +22,7 @@ public class AppScreen {
                 Hello! Welcome to Library Management System!
                 1 - Press 1 to select a library.
                 2 - Press 2 to add a new library.
-                3 - Press 10 to exit the app.
+                3 - Press 3 to exit the app.
                 """);
     }
 
