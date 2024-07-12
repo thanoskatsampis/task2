@@ -1,6 +1,5 @@
 package task2.system;
 
-
 import task2.structures.Admin;
 import task2.structures.Book;
 import task2.structures.Library;
@@ -171,7 +170,7 @@ public class LibraryMS implements LibraryService {
     public void addAdmin(Library library, Admin admin) {
         for(Admin a : library.getAdmins()) {
             if (admin.equals(a)) {
-                System.out.println(admin.getName() + "is already exists.");
+                System.out.println(admin.getName() + " already exists.");
                 return;
             }
         }
